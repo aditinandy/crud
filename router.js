@@ -33,10 +33,11 @@ router.post('/', async(req, res) => {
 
 // fetch data
 
-router.get('/:id', async(req, res) => {
+router.get('/fetch', async(req, res, next) => {
 	try{
-		const crud1 = await crud_Schema.findById(req.params.id);
-		res.json(crud1);
+		// let rand = Math.random();
+		const fetch = await crud_Schema.aggregate([{$sample: {size: 2}}]);
+		res.json(fetch);
 	}
 	catch(error){
 		res.send(error);
